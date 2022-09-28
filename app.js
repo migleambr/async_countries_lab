@@ -9,6 +9,9 @@ const getAllCountries = async () => {
     const countryNames = jsonData.map((country) => country.name.common);
     //console.log(countryNames);
 
+    const countryFlags = jsonData.map((country) => country.flag);
+    console.log(countryFlags);
+
     const countriesList = document.querySelector("ul");
     countryNames.forEach((countryName) => {
         // generate li elements for each country object
@@ -19,6 +22,26 @@ const getAllCountries = async () => {
         countriesList.appendChild(textContent);
     })
 
+    // managed to get all flags appended to the main list, but not alongside their respective country
+    for(let i = 0; i < countryFlags.length; i++) {
+        const imageContent = document.createElement("li");
+        imageContent.innerText = countryFlags[i];
+        countriesList.appendChild(imageContent);
+        console.log(imageContent);
+    }
+
+    // calculate the total population of all the countries
+    const countryPopulations = jsonData.map((country) => country.population);
+    // console.log(countryPopulations);
+    let totalPopulation = 0;
+    countryPopulations.forEach((population) => {
+        totalPopulation += population;
+    })
+    // console.log(totalPopulation);
+    
+    const worldPopulation = document.querySelector("h2");
+    worldPopulation.innerText = "Total Population: " + totalPopulation;
+    
 }
 
 getAllCountries();
